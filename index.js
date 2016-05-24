@@ -49,7 +49,7 @@ module.exports = function(S) {
       let projectConf = project.custom && project.custom.webpack;
       let funcConf = func.custom && func.custom.webpack;
 
-      if(func.getRuntime().getName() === 'nodejs' && projectConf && (funcConf || (projectConf.global && funcConf !== false))) {
+      if(/^nodejs/.test(func.getRuntime().getName()) && projectConf && (funcConf || (projectConf.global && funcConf !== false))) {
         let optimizer = new WebpackNodejs(S, evt, func);
         return optimizer.optimize();
       }
