@@ -94,7 +94,15 @@ module.exports = function(S) {
       fs.chmodSync(optimizedDistPath, parseInt('777', 8));
 
       webpackConfig.context = _this.evt.options.pathDist;
-      webpackConfig.entry = './' + handlerFileName;
+
+      if(webpackConfig.entry) {
+        if(!Array.isArray(webpackConfig.entry))
+          webpackConfig.entry = [ webpackConfig.entry ];
+        webpackConfig.entry.push('./' + handlerFileName);
+      }
+      else
+        webpackConfig.entry = './' + handlerFileName;
+
       webpackConfig.output = {
         libraryTarget: 'commonjs',
         path: optimizedDistPath,
